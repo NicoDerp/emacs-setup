@@ -4,7 +4,7 @@
 ;;; A Bisqwit-style theme
 ;;; Code:
 
-(deftheme bisqwit "DOCSTRING for bisqwit")
+(deftheme bisqwit "Bisqwit-style theme")
   (custom-theme-set-faces 'bisqwit
    '(default ((t (:foreground "#a8a8a8" :background "#000000" ))))
    '(cursor ((t (:background "#d0e6df" ))))
@@ -25,15 +25,17 @@
    '(highlight-numbers-number ((t (:foreground "#9354d9"))))
    '(setq display-line-numbers-type nil)
    '(global-display-line-numbers-mode)
-;  '(c++_highlight_face ((t (:foreground "#97ab45"))))
    )
 
+;(and load-file-name
+;    (boundp 'custom-theme-load-path)
+;    (add-to-list 'custom-theme-load-path
+;                 (file-name-as-directory
+;                  (file-name-directory load-file-name))))
 ;;;###autoload
-(and load-file-name
-    (boundp 'custom-theme-load-path)
-    (add-to-list 'custom-theme-load-path
-                 (file-name-as-directory
-                  (file-name-directory load-file-name))))
+(when (boundp 'custom-theme-load-path)
+  (add-to-list 'custom-theme-load-path
+               (file-name-as-directory (file-name-directory load-file-name))))
 
 ;; Automatically add this theme to the load path
 
