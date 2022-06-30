@@ -22,9 +22,8 @@
    '(font-lock-variable-name-face ((t (:foreground "#a8a8a8" ))))
    '(minibuffer-prompt ((t (:foreground "#000000" :background "#bebebc" :bold t ))))
    '(font-lock-warning-face ((t (:foreground "#3a4a8b" :bold t ))))
-   '(highlight-numbers-number ((t (:foreground "#9354d9"))))
-   '(setq display-line-numbers-type nil)
-   '(global-display-line-numbers-mode)
+   '(highlight-numbers-number ((t (:foreground "#af71f4"))))
+   '(hc-trailing-whitespace ((t (:foreground "#00088c"))))
    )
 
 ;(and load-file-name
@@ -35,7 +34,7 @@
 ;;;###autoload
 (when (boundp 'custom-theme-load-path)
   (add-to-list 'custom-theme-load-path
-               (file-name-as-directory (file-name-directory load-file-name))))
+               (file-name-as-directory (file-name-directory load-file-name)))) 
 
 ;; Automatically add this theme to the load path
 

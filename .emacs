@@ -197,70 +197,103 @@
  ;; If there is more than one, they won't work right.
  '(c++face ((t (:foreground "green")))))
 
-(defgroup bisqwit-group nil
+(defgroup c++-highlight-group nil
   "Group for c++ customization"
-  :prefix "bisqwit-")
+  :prefix "c++-highlight-")
 
-(defface bisqwit-highlight-specials1-face
+(defface c++-highlight-specials1-face
   '((t :inherit (default)
        :foreground "#17bc19"))
   "Face for special 1 characters"
-  :group 'bisqwit-group )
+  :group 'c++-highlight-group )
 
-(defface bisqwit-highlight-specials2-face
+(defface c++-highlight-specials2-face
   '((t :inherit (default)
        :foreground "#009d9d"))
   "Face for special 2 characters"
-  :group 'bisqwit-group )
+  :group 'c++-highlight-group )
 
-(defvar bisqwit-keywords '(
-  ("\\[" . 'bisqwit-highlight-specials1-face)
-  ("\\]" . 'bisqwit-highlight-specials1-face)
-  ("\{"  . 'bisqwit-highlight-specials1-face)
-  ("\}"  . 'bisqwit-highlight-specials1-face)
-  (";"   . 'bisqwit-highlight-specials1-face)
-  (","   . 'bisqwit-highlight-specials1-face)
-  ("="   . 'bisqwit-highlight-specials1-face)
-  
-  ("("   . 'bisqwit-highlight-specials2-face)
-  (")"   . 'bisqwit-highlight-specials2-face)
-  ("\\+" . 'bisqwit-highlight-specials2-face)
-  ("-"   . 'bisqwit-highlight-specials2-face)
-  ("\\*" . 'bisqwit-highlight-specials2-face)
-  ("\\/" . 'bisqwit-highlight-specials2-face)
-  ("\\?" . 'bisqwit-highlight-specials2-face)
-  (">="  . 'bisqwit-highlight-specials2-face)
-  ("<="  . 'bisqwit-highlight-specials2-face)
-  (">"   . 'bisqwit-highlight-specials2-face)
-  ("<"   . 'bisqwit-highlight-specials2-face)
+(defvar c++-highlight-keywords '(
+  ("\\[" . 'c++-highlight-specials1-face)
+  ("\\]" . 'c++-highlight-specials1-face)
+  ("\{"  . 'c++-highlight-specials1-face)
+  ("\}"  . 'c++-highlight-specials1-face)
+  (";"   . 'c++-highlight-specials1-face)
+  (","   . 'c++-highlight-specials1-face)
+  ("="   . 'c++-highlight-specials1-face)
+  ("+="  . 'c++-highlight-specials1-face)
+
+  ("("   . 'c++-highlight-specials2-face)
+  (")"   . 'c++-highlight-specials2-face)
+  ("\\+" . 'c++-highlight-specials2-face)
+  ("-"   . 'c++-highlight-specials2-face)
+  ("\\*" . 'c++-highlight-specials2-face)
+  ("\\/" . 'c++-highlight-specials2-face)
+  ("\\?" . 'c++-highlight-specials2-face)
+  (">="  . 'c++-highlight-specials2-face)
+  ("<="  . 'c++-highlight-specials2-face)
+  (">"   . 'c++-highlight-specials2-face)
+  ("<"   . 'c++-highlight-specials2-face)
+  ("\\+\\+"  . 'c++-highlight-specials2-face)
+  ("--"  . 'c++-highlight-specials2-face)
+  ("&&"  . 'c++-highlight-specials2-face)
+  ("\\|\\|"  . 'c++-highlight-specials2-face)
 )
   "Keywords for bisqwit-minor-mode highlighting")
 
-(define-minor-mode bisqwit-minor-mode
+(define-minor-mode c++-highlight-mode
   "Toggle minor mode for bisqwit style C++"
   nil
   ;:init-value nil
 ;  :global t
-  :lighter " Bisqwit Mode"
-  :group 'bisqwit-group
-  (when bisqwit-minor-mode
-    (font-lock-add-keywords nil bisqwit-keywords)
+  :lighter " HC++"
+  :group 'c++-highlight-group
+  (when c++-highlight-mode
+    (font-lock-add-keywords nil c++-highlight-keywords)
     (font-lock-fontify-buffer)
-    ;(load-theme 'bisqwit)
-    (load-theme 'bisqwit t)
-    (set-default-font "-IBM-IBM BIOS 16x16 SCALED-normal-normal-normal-*-32-*-*-*-c-320-iso10646-1")
-    ;(set-frame-font "-IBM-IBM BIOS 16x16 SCALED-normal-normal-normal-*-32-*-*-*-c-320-iso10646-1" nil t)
     )
 
-  (when (not bisqwit-minor-mode)
-    (font-lock-remove-keywords nil bisqwit-keywords)
+  (when (not c++-highlight-mode)
+    (font-lock-remove-keywords nil c++-highlight-keywords)
     (font-lock-fontify-buffer)
-    (disable-theme 'bisqwit)
-    (set-default-font "Ubuntu Mono-16")
     )
-  )  
+  )
 
-(add-hook 'c++-mode 'bisqwit-minor-mode)
+;(add-hook 'c++-mode 'bisqwit-minor-mode)
+
+(make-variable-buffer-local
+  (defvar bisqwit-mode nil
+    "Toggle bisqwit-style emacs."))
+
+(defun bisqwit-mode (&optional ARG)
+  (interactive (list 'toggle))
+  (setq bisqwit-mode
+        (if (eq ARG 'toggle)
+            (not bisqwit-mode)
+          (> ARG 0)))
+
+  (if bisqwit-mode
+      (progn
+;        (message "Active!")
+        (disable-theme 'gruber-darker)
+        (enable-theme 'bisqwit)
+        (set-default-font "-IBM-IBM BIOS 32x32 WSPACE-normal-normal-normal-*-32-*-*-*-c-320-iso10646-1")
+	(hc-toggle-highlight-trailing-whitespace)
+        (setq display-line-numbers nil)
+        ;(set-frame-font "-IBM-IBM BIOS 32x32 WSPACE-normal-normal-normal-*-32-*-*-*-c-320-iso10646-1" nil t)
+	)
+    (progn
+;     (message "disable")
+      (disable-theme 'bisqwit)
+      (enable-theme 'gruber-darker)
+      (set-default-font "Ubuntu Mono-16")
+      hc-toggle-highlight-trailing-whitespace
+      (setq display-line-numbers t)
+      )
+    )
+  )
+
+(load-theme 'bisqwit t t)
 
 ;(define-globalized-minor-mode bisqwit-global-minor-mode bisqwit-minor-mode bisqwit-minor-mode :group 'bisqwit-group)
 ;(bisqwit-global-minor-mode 1)
