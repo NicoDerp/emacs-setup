@@ -34,22 +34,27 @@
 (windmove-default-keybindings 'meta)
 
 ;; C/C++ mode
-(defun my-c-mode-common-hook ()
- ;; my customizations for all of c-mode, c++-mode, objc-mode, java-mode
- (c-set-offset 'substatement-open 0)
- ;; other customizations can go here
+;(defun my-c-mode-common-hook ()
+; ;; my customizations for all of c-mode, c++-mode, objc-mode, java-mode
+; (c-set-offset 'substatement-open 0)
+; ;; other customizations can go here
+;
+; (setq c++-tab-always-indent t)
+; (setq c-basic-offset 4)                  ;; Default is 2
+; (setq c-indent-level 4)                  ;; Default is 2
+;
+; (setq tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60))
+; (setq tab-width 4)
+; (setq indent-tabs-mode t)  ; use spaces only if nil
+; )
+;
+					;(add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+(defvaralias 'c-basic-offset 'tab-width)
 
- (setq c++-tab-always-indent t)
- (setq c-basic-offset 4)                  ;; Default is 2
- (setq c-indent-level 4)                  ;; Default is 2
-
- (setq tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60))
- (setq tab-width 4)
- (setq indent-tabs-mode t)  ; use spaces only if nil
- )
-
-(add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
 (add-hook 'c++-mode-hook 'highlight-numbers-mode)
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
 ;; Smex
 ;(global-set-key (kbd "M-x") 'smex)
@@ -230,10 +235,10 @@
   ("\\*" . 'c++-highlight-specials2-face)
   ("\\/" . 'c++-highlight-specials2-face)
   ("\\?" . 'c++-highlight-specials2-face)
-  (">="  . 'c++-highlight-specials2-face)
-  ("<="  . 'c++-highlight-specials2-face)
   (">"   . 'c++-highlight-specials2-face)
   ("<"   . 'c++-highlight-specials2-face)
+  (">="  . 'c++-highlight-specials2-face)
+  ("<="  . 'c++-highlight-specials2-face)
   ("\\+\\+"  . 'c++-highlight-specials2-face)
   ("--"  . 'c++-highlight-specials2-face)
   ("&&"  . 'c++-highlight-specials2-face)
@@ -294,6 +299,8 @@
   )
 
 (load-theme 'bisqwit t t)
+
+(add-hook 'c++-mode-hook 'c++-highlight-mode)
 
 ;(define-globalized-minor-mode bisqwit-global-minor-mode bisqwit-minor-mode bisqwit-minor-mode :group 'bisqwit-group)
 ;(bisqwit-global-minor-mode 1)
