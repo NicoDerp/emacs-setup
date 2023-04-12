@@ -6,3 +6,5 @@
 !.emacs.d/bisqwit-theme.el
 !.emacs.d/highlight-chars.el
 !.emacs.d/highlight-numbers.el
+!.vimrc
+
